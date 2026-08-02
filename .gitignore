@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+*.pyc
+
+*.csv
+
+example/dist/
+example/node_modules/
+example/package-lock.json
+
+preprocess*
+
+requirements_dev.txt
