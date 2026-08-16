@@ -16,7 +16,7 @@ On startup, the server loads in `data_replay.h5`, a compressed file containing a
 Each message is a [JSON object](https://stackoverflow.blog/2022/06/02/a-beginners-guide-to-json-the-data-format-for-the-internet/) containing three lists of the same length. The same position across the three lists refer to the same sample. Here's an example:
 
 ```json
-{ "ts": [123000, 123010], "id": [4, 8], "v": [723.0, 62.9] }
+{ "ts": [123000, 124200], "id": [4, 8], "v": [41.5, 13.6] }
 ```
 - `ts` — timestamps of each sample. This is in units of microseconds since the start of the replay.
 
@@ -24,23 +24,22 @@ Each message is a [JSON object](https://stackoverflow.blog/2022/06/02/a-beginner
 
 - `v` — the actual value for each sample.
 
-So, the above example means that at 123000us, sensor 4 (pcm.pedals.brakePressure.front) had a value of 723.0, and at 123010us, sensor 8 (pcm.moc.motor.temp) had a value of 62.9.
+So, the above example means that at 123000us, sensor 4 (pcm.moc.motor.requestedTorque) had a value of 41.5, and at 124200us, sensor 8 (pcm.vnav.velocityBody.x) had a value of 13.6.
 
 |ID|Sensor Name|⠀⠀⠀⠀⠀⠀⠀⠀|ID|Sensor Name|
 |--|-----------|----------|--|-----------|
-|0|pcm.wheelSpeeds.frontLeft||13|bms.stack.mma.temp.avg|
-|1|pcm.wheelSpeeds.backLeft||14|ludwig.steeringWheel.angle|
-|2|pcm.wheelSpeeds.backRight||15|ludwig.shockpot.frontLeft|
-|3|pcm.pedals.accel||16|ludwig.shockpot.frontRight|
-|4|pcm.pedals.brakePressure.front||17|ludwig.shockpot.rearLeft|
-|5|pcm.pedals.brakePressure.rear||18|ludwig.shockpot.rearRight|
-|6|pcm.moc.motor.requestedTorque||19|pcm.vnav.posLla.latitude|
-|7|pcm.moc.motor.torqueFeedback||20|pcm.vnav.posLla.longitude|
-|8|pcm.moc.motor.temp||21|pcm.vnav.velocityBody.x|
-|9|pcm.coolingLoop.temp||22|pcm.vnav.velocityBody.y|
-|10|bms.pack.voltage||23|pcm.vnav.compensatedAccel.x|
-|11|bms.pack.current||24|pcm.vnav.compensatedAccel.y|
-|12|bms.pack.power||25|pcm.vnav.yawPitchRoll.yaw|
+|0|pcm.wheelSpeeds.frontLeft||12|pcm.vnav.compensatedAngularRate.z|
+|1|pcm.pedals.accel||13|bms.pack.voltage|
+|2|pcm.coolingLoop.temp||14|bms.pack.current|
+|3|pcm.moc.motor.temp||15|bms.pack.power|
+|4|pcm.moc.motor.requestedTorque||16|bms.stack.mma.temp.avg|
+|5|pcm.moc.motor.torqueFeedback||17|pdu.sensors.currPmp1|
+|6|pcm.vnav.posLla.latitude||18|pdu.sensors.currPmp2|
+|7|pcm.vnav.posLla.longitude||19|pdu.sensors.currFan1|
+|8|pcm.vnav.velocityBody.x||20|pdu.sensors.currFan2|
+|9|pcm.vnav.velocityBody.y||21|ludwig.steeringWheel.angle|
+|10|pcm.vnav.compensatedAccel.y||22–37|ludwig.tireTemps.rearLeft[N], <br/>*16 channels, 0-15, N can be any integer from 0 to 15*|
+|11|pcm.vnav.yawPitchRoll.yaw||38–53|ludwig.tireTemps.rearRight[N] <br/>*16 channels, 0-15, N can be any integer from 0 to 15*|
 
 To understand what these terms mean, what units the values `v` are in, and what visualizations you might want to use them for, come to office hours to talk to us!
 
@@ -86,7 +85,7 @@ To understand what these terms mean, what units the values `v` are in, and what 
 
     Keep in mind that this entire setup is meant to run on [localhost](https://www.freecodecamp.org/news/what-is-localhost/) (your own computer). We would like your widget to be a separate application from the server, connected locally through a [port](https://www.whatismyip.com/what-is-a-port/) (8081 in the example command above). When you are ready to run your widget, you should first startup the server, then startup your widget.
 
-6. **OPTIONAL** If you want, you can run the example widget we provide. First, make sure you have Node.js installed. Visit [Node.js's official website](https://nodejs.org/en/download/) and follow the instructions there to install it.
+6. **[OPTIONAL]** If you want, you can run the example widget we provide. First, make sure you have Node.js installed. Visit [Node.js's official website](https://nodejs.org/en/download/) and follow the instructions there to install it.
 
     Then, in a terminal, run the following commands. `npm` is [Node's package manager](https://www.freecodecamp.org/news/what-is-npm-a-node-package-manager-tutorial-for-beginners/). It comes with a standard Node installation.
     ```shell
