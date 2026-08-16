@@ -58,11 +58,16 @@ export default function Speedometer(props: { serverEndpoint: string }) {
         fontFamily="'Arial Narrow', 'Segoe UI', Impact, sans-serif"
         accentColor="#E10600" // F1 racing red
       >
-        <Background color="#111111" /> {/* dark plate behind the arc */}
-        <Arc color="#2b2b2b" arcWidth={18} lineCap="butt" /> {/* unfilled portion, dark grey*/}
-        <Progress color="#E10600" arcWidth={18} lineCap="butt" /> {/* filled portion, bright red */}
-        <Needle color="#E10600" circleColor="#f2f2f2" circleRadius={10} strokeLinejoin="miter" /> {/* red needle, light hub so it's visible against the black face */}
-        <Marks lineColor="#f2f2f2" fontSize={18} /> {/* off-white ticks/numbers*/}
+        {/* dark plate behind the arc */}
+        <Background color="#111111" />
+        {/* unfilled portion, dark grey */}
+        <Arc color="#2b2b2b" arcWidth={18} lineCap="butt" />
+        {/* filled portion, bright red */}
+        <Progress color="#E10600" arcWidth={18} lineCap="butt" />
+        {/* red needle, light hub so it's visible against the black face */}
+        <Needle color="#E10600" circleColor="#f2f2f2" circleRadius={10} strokeLinejoin="miter" />
+        {/* off-white ticks/numbers */}
+        <Marks lineColor="#f2f2f2" fontSize={18} />
         {/* React render prop to add custom units */}
         <Indicator fontSize={48} color="#E10600" fontFamily="'Arial Narrow', 'Segoe UI', Impact, sans-serif">
           {(fixedValue, textProps) => (
